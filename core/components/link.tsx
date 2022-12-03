@@ -5,6 +5,7 @@ string will be rendered but do not embed React components; they won't work.
 This typically occurs for the last item in a Choice list. */
 
 import { Tag } from 'core/types'
+import { Link as ChakraLink } from '@chakra-ui/layout'
 
 interface LinkProps {
     text: string
@@ -16,7 +17,8 @@ const Link = ({ text, handler, tag }: LinkProps): JSX.Element => {
     if (handler) {
         return (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a
+            <ChakraLink
+                color="cyan.500"
                 href="#"
                 tabIndex={0}
                 data-tag={tag}

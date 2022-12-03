@@ -4,6 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 
 import { Config } from 'core/types'
 import { StoryContext } from 'core/containers/store-container'
+import { Button } from '@chakra-ui/button'
 
 /* Reset the story and remove the local storage */
 export const resetStory = (
@@ -14,7 +15,7 @@ export const resetStory = (
     message = 'Restart story from the beginning?'
 ): void => {
     // Drop any chapter-level path info
-    const url = '/' + router.basePath + config.identifier
+    const url = '/out/' + router.basePath + config.identifier
     if (userInitiated) {
         if (confirm(message)) {
             persistor.flush().then(() => {
@@ -40,9 +41,11 @@ const ResetButton = ({ children = 'Reset', message }: ResetType): JSX.Element =>
     const router = useRouter()
     return (
         <>
-            <button onClick={() => resetStory(true, config, persistor, router, message)}>
+            <Button
+                colorScheme="red"
+                onClick={() => resetStory(true, config, persistor, router, message)}>
                 {children}
-            </button>
+            </Button>
         </>
     )
 }

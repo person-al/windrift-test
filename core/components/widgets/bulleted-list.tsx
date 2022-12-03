@@ -11,6 +11,7 @@ import { isEqual } from 'lodash'
 
 import Link from 'core/components/link'
 import { WidgetProps } from '.'
+import { PARAGRAPH_SPACING } from 'stories/src/constants'
 
 declare function BulletedListType(props: WidgetProps): JSX.Element
 
@@ -27,11 +28,6 @@ const InlineList: typeof BulletedListType = ({
             {[...initialOptions[0]].map((t, i) => (
                 <li key={i} className={className}>
                     <Link handler={handler} text={t} tag={tag} />
-                    {group.map((g) => {
-                        if (!isEqual(initialOptions[0], group) && g === t) {
-                            return ' (selected)'
-                        }
-                    })}
                 </li>
             ))}
         </ul>

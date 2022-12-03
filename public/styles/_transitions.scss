@@ -25,3 +25,21 @@ See core/components/chapter.tsx for implementation details.
     opacity: 0.01;
     transition: opacity 300ms ease-in;
   }
+
+  .windrift--when-enter, .windrift--when-appear {
+    opacity: 0.01;
+  }
+
+  .windrift--when-enter.windrift--when-enter-active, .windrift--when-appear.windrift--when-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+
+  .windrift--when-leave {
+    opacity: 1;
+  }
+
+  .windrift--when-leave.windrift--when-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
