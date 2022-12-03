@@ -26,7 +26,6 @@ type BlockchainContextType = {
     tokenInfo: Map<number, TokenInfo>
     setTokenInfo: (info: Map<number, TokenInfo>) => void
     isOwner: boolean
-    isSubscriber: boolean
 }
 
 const defaultContext: BlockchainContextType = {
@@ -41,8 +40,7 @@ const defaultContext: BlockchainContextType = {
     changeChainManually: (_: string) => {},
     tokenInfo: new Map(),
     setTokenInfo: (_: Map<number, TokenInfo>) => {},
-    isOwner: false,
-    isSubscriber: false
+    isOwner: false
 } //Insert the default value here.
 const InternalBlockchainContext = React.createContext(defaultContext)
 
@@ -62,7 +60,6 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
     const [latestBlock, setLatestBlock] = React.useState<number>(0)
     const [tokenInfo, setTokenInfo] = React.useState<Map<number, TokenInfo>>(new Map())
     const [isOwner, setIsOwner] = React.useState<boolean>(false)
-    const [isSubscriber, setIsSubscriber] = React.useState<boolean>(false)
 
     metamask && metamask.on('chainChanged', handleChainChanged)
 
@@ -94,10 +91,10 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
         try {
             const contractInfo = CONTRACT_INFO[chainId]
             const provider = new ethers.providers.Web3Provider(metamask)
-            const signer = provider.getSigner()
-            const connection = new ethers.Contract(contractInfo.address, contractInfo.abi, signer)
+            const signerObj = provider.getSigner()
+            const connection = new ethers.Contract(contractInfo.address, contractInfo.abi, signerObj)
             setWriteConnection(connection)
-            setSigner(signer._address)
+            signerObj.getAddress().then((addr) => addr !== signer && setSigner(addr))
             return connection
         } catch (err) {
             console.log(err)
@@ -169,8 +166,7 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
         changeChainManually: changeChainManually,
         tokenInfo: tokenInfo,
         setTokenInfo: setTokenInfo,
-        isOwner: isOwner,
-        isSubscriber: isSubscriber
+        isOwner: isOwner
     }
 
     // On first load, figure out which chain we're connected to

@@ -68,10 +68,10 @@ export const ContractWriteModal = ({
             const reasons = err.message.match(/reason":"(.+)","code/)
             if (reasons && reasons.length > 1) {
                 setError(reasons[1])
-                onError(reasons[1])
+                onError && onError(reasons[1])
             } else {
                 setError(err.reason)
-                onError(err.reason)
+                onError && onError(err.reason)
             }
             setInProgress(false)
         }

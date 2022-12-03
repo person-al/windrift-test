@@ -7,16 +7,12 @@ import { useBlockchainContext } from 'stories/src/components/BlockchainContext'
 import { Pages, useNavContext } from 'stories/src/components/NavContext'
 
 export const Page: PageType = () => {
-    // TODO: put hasMinted in the context
-    const { isSubscriber, isOwner } = useBlockchainContext()
+    const { isOwner } = useBlockchainContext()
     const { setCurrPage } = useNavContext()
 
     const getLastLine = () => {
         if (isOwner) {
-            // TODO: This probably should be hasMinted instead?
             return ' In the meantime, well, you have another adventure to begin.'
-        } else if (isSubscriber) {
-            return ' You squeeze the new trinket in your pocket gently. Besides, you get a sense that your adventure is only just beginning.'
         } else {
             return ' Besides, you have a feeling your adventure is only just beginning.'
         }

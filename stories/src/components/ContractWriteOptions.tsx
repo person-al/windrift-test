@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Button, IconButton } from '@chakra-ui/button'
 import { useBlockchainContext } from './BlockchainContext'
-import { MintModal } from './MintModal'
 import { BurnModal } from './BurnModal'
 import { CHAIN_ID_TO_NAME, CONTRACT_INFO } from '../constants'
 import { BsInfoCircle } from 'react-icons/bs'

@@ -16,7 +16,7 @@ export const MintModal = ({
 
     React.useEffect(() => {
         contractConnection &&
-            contractConnection._mintFee().then((result: number) => {
+            contractConnection.mintFee().then((result: number) => {
                 const fee = result / 10 ** 17
                 setMintFeeEth(fee.toString())
             })
@@ -26,13 +26,14 @@ export const MintModal = ({
         return (
             <span>
                 This gem costs {mintFeeEth} ETH. You may only buy one gem from The Shopkeeper
-                directly. Ready? Note that this action requires Metamask.
+                directly, and you may only hold 3 gems at a time. Ready? Note that this action
+                requires Metamask.
             </span>
         )
     }
 
     const mintToken = (writeConn: ethers.Contract) => {
-        return writeConn.mint(false, {
+        return writeConn.mint({
             value: ethers.utils.parseEther(mintFeeEth)
         })
     }

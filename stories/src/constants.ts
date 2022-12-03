@@ -27,7 +27,7 @@ export const CONTRACT_NAME = "PoemPathfinder";
 // }
 
 export const CONTRACT_INFO: Record<string,ContractInfoType> = {
-    "0x5": {address: "0x624910E773E52495165f05a5276111Ab8fD837a3", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/poempathfinder"},
+    "0x5": {address: "0x624910E773E52495165f05a5276111Ab8fD837a3", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/poempathfinder-v4"},
 }
 
 export const SUPPORTED_CHAINS = Object.keys(CONTRACT_INFO);

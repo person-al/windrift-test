@@ -7,7 +7,6 @@ import ChapterPage from './ChapterPage'
 
 export const Page: PageType = () => {
     const [hasMinted] = React.useState<boolean>(false)
-    const [isSubscriber] = React.useState<boolean>(false)
     const [again, wantToBuy] = useInventory(['again', 'wantToBuy'])
 
     return (
@@ -23,8 +22,7 @@ export const Page: PageType = () => {
                     </p>
                     <p>
                         The Shopkeeper is nowhere to be seen, though on the counter rests a small
-                        pair of pliers and an ITEM DETAIL that looks{' '}
-                        {isSubscriber ? 'just like the one she gave you' : 'oddly familiar'}.
+                        pair of pliers and an ITEM DETAIL.
                     </p>
                     <p>You hear a sharp voice behind you:</p>
                     <p>"What do you want this time?"</p>
@@ -34,25 +32,14 @@ export const Page: PageType = () => {
                         interruption but not <i>too</i> irritated.
                     </p>
                     <p>{again}</p>
-                    {!again && !isSubscriber && hasMinted && (
-                        <ul>
-                            <li>
-                                <Nav
-                                    text='"Do you have anything else I might be interested in?"'
-                                    next="chapter5"
-                                    tag="wantToSubscribe"
-                                />
-                            </li>
-                            <li>
+                    {!again && hasMinted && (
                                 <Nav
                                     text={'"Tell me the dwarves\' story again."'}
                                     next={Next.Section}
                                     tag="again"
                                 />
-                            </li>
-                        </ul>
                     )}
-                    {!again && isSubscriber && !hasMinted && (
+                    {!again && !hasMinted && (
                         <C
                             options={[
                                 [
@@ -63,29 +50,6 @@ export const Page: PageType = () => {
                             widget={BulletedList}
                             tag="again"
                         />
-                    )}
-                    {!again && !isSubscriber && !hasMinted && (
-                        <>
-                            <ul>
-                                <li>
-                                    <Nav
-                                        text='"Do you have anything new I might be interested in?"'
-                                        next="chapter5"
-                                        tag="wantToSubscribe"
-                                    />
-                                </li>
-                            </ul>
-                            <C
-                                options={[
-                                    [
-                                        '"Can you show me the dwarves\' gem again?"',
-                                        '"Tell me the dwarves\' story again."'
-                                    ]
-                                ]}
-                                widget={BulletedList}
-                                tag="again"
-                            />
-                        </>
                     )}
                 </Section>
                 <Section>
