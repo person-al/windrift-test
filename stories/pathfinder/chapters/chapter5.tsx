@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Nav, C, Section, Chapter, When } from 'core/components'
+import { Nav, Section, Chapter, When } from 'core/components'
 import { Next, PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 import { useDispatch } from 'react-redux'
@@ -9,25 +9,27 @@ import { Button } from '@chakra-ui/button'
 import ChapterPage from './ChapterPage'
 import { useBlockchainContext } from 'stories/src/components/BlockchainContext'
 import { MintModal } from 'stories/src/components/MintModal'
-import { Tooltip } from '@chakra-ui/react'
+import { Link } from '@chakra-ui/layout'
+import { CONTRACT_INFO } from 'stories/src/constants'
 
 export const Page: PageType = () => {
     const dispatch = useDispatch()
     const [wantToBuy] = useInventory(['wantToBuy'])
-    const { signer, contractConnection } = useBlockchainContext()
+    const { signer, contractConnection, chainId } = useBlockchainContext()
     const [gemsRemain, setGemsRemain] = React.useState<boolean>(true)
     const [hasMinted, setHasMinted] = React.useState<boolean>(false)
     const [mintSuccess, setMintSuccess] = React.useState<boolean>(false)
 
     React.useEffect(() => {
-        contractConnection
-            .totalMinted()
-            .then((result: number) => {
-                setGemsRemain(result < 7)
-            })
-            .catch((err: Error) => {
-                console.log(err)
-            })
+        contractConnection &&
+            contractConnection
+                .totalMinted()
+                .then((result: number) => {
+                    setGemsRemain(result < 7)
+                })
+                .catch((err: Error) => {
+                    console.log(err)
+                })
     }, []) // only check on first render
 
     React.useEffect(() => {
@@ -35,14 +37,15 @@ export const Page: PageType = () => {
         if (!signer || signer.length == 0 || mintSuccess) {
             return
         }
-        contractConnection
-            .totalMintedTo(signer)
-            .then((result: number) => {
-                setHasMinted(result > 0)
-            })
-            .catch((err: Error) => {
-                console.log(err)
-            })
+        contractConnection &&
+            contractConnection
+                .totalMintedTo(signer)
+                .then((result: number) => {
+                    setHasMinted(result > 0)
+                })
+                .catch((err: Error) => {
+                    console.log(err)
+                })
     }, [signer])
 
     return (
@@ -128,8 +131,7 @@ export const Page: PageType = () => {
                                 </p>
                                 <p>
                                     But as she places the gem in your out-stretched palm, it begins
-                                    to glow, taking on a shiny [color] hue. Like a glistening
-                                    [gemstone].
+                                    to glow, taking on a shiny red hue. Like a glistening ruby.
                                 </p>
                                 <p>
                                     "Hah!" The Shopkeeper barks. "I suppose you just needed a little
@@ -149,17 +151,20 @@ export const Page: PageType = () => {
                     <When condition={wantToBuy === 'Yes' && signer && !hasMinted && !gemsRemain}>
                         <p>
                             Funny, you're not the first to come in asking about that. Unfortunately,
-                            the gems are gone. Though perhaps by now [other merchants] have found
-                            them.
+                            the gems are gone. Though perhaps by now{' '}
+                            <Link color="cyan.500" href={CONTRACT_INFO[chainId].openSeaLink}>
+                                other merchants
+                            </Link>{' '}
+                            have found them.
                         </p>
                     </When>
                     {/*Wants to buy but has already minted*/}
                     <When condition={wantToBuy === 'Yes' && signer && hasMinted}>
                         <p>
                             "No, no. The gems came from 7 and must go to 7. Though perhaps{' '}
-                            <Tooltip label="TODO: link to collection on OpenSea">
-                                [other merchants]
-                            </Tooltip>{' '}
+                            <Link color="cyan.500" href={CONTRACT_INFO[chainId].openSeaLink}>
+                                others
+                            </Link>{' '}
                             are less principled than I. I have nothing else for you!
                         </p>
                         <p>

@@ -19,7 +19,7 @@ export const CHAIN_ID_TO_NAME: Record<string, string> = {
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
-export const CONTRACT_NAME = "PoemPathfinder";
+export const CONTRACT_NAME = "Pathfinder";
 
 // export const CONTRACT_INFO: Record<string,ContractInfoType> = {
 //     "0x4": {address: "0xDeE90CcC0ebD4b1cf3373621946b8fee22660f47", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/poempathfinder"},
@@ -27,7 +27,7 @@ export const CONTRACT_NAME = "PoemPathfinder";
 // }
 
 export const CONTRACT_INFO: Record<string,ContractInfoType> = {
-    "0x5": {address: "0x624910E773E52495165f05a5276111Ab8fD837a3", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/poempathfinder-v4"},
+    "0x5": {address: "0x7AEe7318aEac4C955f554b5cF6A3C42b96F1143f", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/pathfinder"},
 }
 
 export const SUPPORTED_CHAINS = Object.keys(CONTRACT_INFO);
