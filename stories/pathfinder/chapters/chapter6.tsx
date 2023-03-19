@@ -7,11 +7,11 @@ import { useBlockchainContext } from 'stories/src/components/BlockchainContext'
 import { Pages, useNavContext } from 'stories/src/components/NavContext'
 
 export const Page: PageType = () => {
-    const { isOwner } = useBlockchainContext()
+    const { hasMinted } = useBlockchainContext()
     const { setCurrPage } = useNavContext()
 
     const getLastLine = () => {
-        if (isOwner) {
+        if (hasMinted) {
             return ' In the meantime, well, you have another adventure to begin.'
         } else {
             return ' Besides, you have a feeling your adventure is only just beginning.'

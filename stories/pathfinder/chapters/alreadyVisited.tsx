@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { Section, Chapter, Nav, When, C } from 'core/components'
+import { Section, Chapter, When, C } from 'core/components'
 import useInventory from 'core/hooks/use-inventory'
-import { Next, PageType } from 'core/types'
+import { PageType } from 'core/types'
 import { BulletedList } from 'core/components/widgets'
 import ChapterPage from './ChapterPage'
 
 export const Page: PageType = () => {
-    const [hasMinted] = React.useState<boolean>(false)
     const [again, wantToBuy] = useInventory(['again', 'wantToBuy'])
 
     return (
@@ -22,7 +21,7 @@ export const Page: PageType = () => {
                     </p>
                     <p>
                         The Shopkeeper is nowhere to be seen, though on the counter rests a small
-                        pair of pliers and an ITEM DETAIL.
+                        pair of pliers and a small, thumb-sized lantern.
                     </p>
                     <p>You hear a sharp voice behind you:</p>
                     <p>"What do you want this time?"</p>
@@ -32,19 +31,12 @@ export const Page: PageType = () => {
                         interruption but not <i>too</i> irritated.
                     </p>
                     <p>{again}</p>
-                    {!again && hasMinted && (
-                                <Nav
-                                    text={'"Tell me the dwarves\' story again."'}
-                                    next={Next.Section}
-                                    tag="again"
-                                />
-                    )}
-                    {!again && !hasMinted && (
+                    {!again && (
                         <C
                             options={[
                                 [
-                                    '"Can you show me the dwarves\' gem again?"',
-                                    '"Tell me the dwarves\' story again."'
+                                    '"Tell me the dwarves\' story again."',
+                                    '"I\'d like to buy another gem."'
                                 ]
                             ]}
                             widget={BulletedList}
@@ -71,13 +63,9 @@ export const Page: PageType = () => {
                             your every feature. The silence is deafening.
                         </p>
                         <p>
-                            "I'm being kind as you've visited before. But do not waste my time. Are
-                            you being serious?"
-                        </p>
-                        <p>
                             {!wantToBuy && (
                                 <>
-                                    Do you want to buy a gem?{' '}
+                                    "Are you sure?" she asks. You suspect she's considering it.{' '}
                                     <C options={[['Yes', 'no']]} tag="wantToBuy" next="chapter5" />
                                 </>
                             )}

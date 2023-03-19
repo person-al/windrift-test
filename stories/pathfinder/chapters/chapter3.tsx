@@ -51,10 +51,9 @@ export const Page: PageType = () => {
                         through the air as you take in the sights and smells. It's a small, one-room
                         hut, dimly lit by a single light-bulb hanging from the ceiling. Every square
                         inch is packed with velvet, jewels, and bottled body parts. It smells like
-                        magic and dust. In front of you there's a wooden counter, also packed with
-                        bottles and plants and books. And behind the counter, with her backed turned
-                        to you, stands an old woman. Without turning around she says, "I smell a
-                        human. Who goes there and what do you seek?"
+                        magic and dust. In front of you there's a wooden counter, nearly invisible under the clutter.
+                        And behind the counter, with her back to you, stands an old woman. Without turning around she says,
+                        "I smell a human. Who goes there and what do you seek?"
                     </p>
                     {identity ? (
                         <p>
@@ -338,7 +337,7 @@ export const Page: PageType = () => {
                             She leans forward, her tone underscoring the seriousness of her words.
                             "Sparkle means nothing in this world. <i>Nothing</i> compared to the raw
                             power of magic. And that's what they are--" she leans back again, her
-                            eyes sparkling. "They are not gems. They are pure magic incarnate."
+                            eyes shining. "They are not gems. They are pure magic incarnate."
                         </p>
                         <p>
                             You take your time drinking the tea, letting the natural pause mask{' '}

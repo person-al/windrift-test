@@ -52,7 +52,7 @@ export const Page: PageType = () => {
         <ChapterPage>
             <Chapter filename="chapter5">
                 <Section>
-                    {wantToBuy === 'Yes' && <p>"I'm sure"</p>}
+                    {wantToBuy === 'Yes' && <p>"I'm sure."</p>}
                     {wantToBuy === 'no' && (
                         <>
                             <p>
@@ -161,11 +161,11 @@ export const Page: PageType = () => {
                     {/*Wants to buy but has already minted*/}
                     <When condition={wantToBuy === 'Yes' && signer && hasMinted}>
                         <p>
-                            "No, no. The gems came from 7 and must go to 7. Though perhaps{' '}
+                            "No, no. We've done business already. The gems came from 7 and must go to 7. Though perhaps{' '}
                             <Link color="cyan.500" href={CONTRACT_INFO[chainId].openSeaLink}>
                                 others
                             </Link>{' '}
-                            are less principled than I. I have nothing else for you!
+                            are less principled than I. I have nothing else for you!"
                         </p>
                         <p>
                             You thank her quickly and <Nav text="leave" next="chapter6" /> before

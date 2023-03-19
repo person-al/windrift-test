@@ -9,8 +9,7 @@ import { useBlockchainContext } from 'stories/src/components/BlockchainContext'
 
 export const Page: PageType = () => {
     const [outOfBed, pocketAnimal, begin] = useInventory(['outOfBed', 'pocketAnimal', 'begin'])
-    // TODO: should actually only check hasMinted. I think that matters more in this scenario.
-    const { signer, isOwner } = useBlockchainContext()
+    const { signer, hasMinted } = useBlockchainContext()
 
     return (
         <ChapterPage>
@@ -57,7 +56,7 @@ export const Page: PageType = () => {
                             <Text>
                                 <Nav
                                     text="Begin"
-                                    next={isOwner ? 'alreadyVisited' : Next.Section}
+                                    next={hasMinted ? 'alreadyVisited' : Next.Section}
                                     tag="begin"
                                 />
                             </Text>

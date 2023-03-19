@@ -25,7 +25,7 @@ type BlockchainContextType = {
     changeChainManually: (chainId: string) => void
     tokenInfo: Map<number, TokenInfo>
     setTokenInfo: (info: Map<number, TokenInfo>) => void
-    isOwner: boolean
+    hasMinted: boolean
 }
 
 const defaultContext: BlockchainContextType = {
@@ -40,7 +40,7 @@ const defaultContext: BlockchainContextType = {
     changeChainManually: (_: string) => {},
     tokenInfo: new Map(),
     setTokenInfo: (_: Map<number, TokenInfo>) => {},
-    isOwner: false
+    hasMinted: false
 } //Insert the default value here.
 const InternalBlockchainContext = React.createContext(defaultContext)
 
@@ -59,7 +59,7 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
     const [chainId, setChainId] = React.useState<string>('0x0')
     const [latestBlock, setLatestBlock] = React.useState<number>(0)
     const [tokenInfo, setTokenInfo] = React.useState<Map<number, TokenInfo>>(new Map())
-    const [isOwner, setIsOwner] = React.useState<boolean>(false)
+    const [hasMinted, setHasMinted] = React.useState<boolean>(false)
 
     metamask && metamask.on('chainChanged', handleChainChanged)
 
@@ -92,7 +92,11 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
             const contractInfo = CONTRACT_INFO[chainId]
             const provider = new ethers.providers.Web3Provider(metamask)
             const signerObj = provider.getSigner()
-            const connection = new ethers.Contract(contractInfo.address, contractInfo.abi, signerObj)
+            const connection = new ethers.Contract(
+                contractInfo.address,
+                contractInfo.abi,
+                signerObj
+            )
             setWriteConnection(connection)
             signerObj.getAddress().then((addr) => addr !== signer && setSigner(addr))
             return connection
@@ -166,7 +170,7 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
         changeChainManually: changeChainManually,
         tokenInfo: tokenInfo,
         setTokenInfo: setTokenInfo,
-        isOwner: isOwner
+        hasMinted: hasMinted
     }
 
     // On first load, figure out which chain we're connected to
@@ -196,13 +200,20 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
             contractConnection.on('Transfer', (_to, _from, _tokenId, event: any) => {
                 setLatestBlock(event.blockNumber)
             })
-            // Check if owns any tokens
-            signer &&
-                contractConnection.balanceOf(signer).then((result: number) => {
-                    setIsOwner(result > 0)
-                })
         }
     }, [contractConnection])
+
+    React.useEffect(() => {
+        if (contractConnection && signer) {
+            console.log('Checking if minted before')
+            // Check if minted before
+            signer &&
+                contractConnection.totalMintedTo(signer).then((result: number) => {
+                    setHasMinted(result > 0)
+                    console.log('minted: ' + result)
+                })
+        }
+    }, [contractConnection, signer])
 
     return (
         <InternalBlockchainContext.Provider value={contextInfo}>

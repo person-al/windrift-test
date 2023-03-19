@@ -82,9 +82,9 @@ export const Page: PageType = () => {
                                         chance of hikers.
                                     </p>
                                     <p>
-                                        You tread along for a few minutes, your phone out for light
+                                        You tread along for a few minutes, using your phone's flashlight
                                         as you scan the horizon for anything out of the ordinary.
-                                        Finally, you turn your phone off, letting the moonlight
+                                        Finally, you turn it off, letting the moon
                                         guide you instead. The darkness is nearly suffocating: you
                                         imagine any number of predators watching you from the dark.
                                         Just when you're ready to turn your phone back on, a shimmer
@@ -111,7 +111,7 @@ export const Page: PageType = () => {
                                         wanting to draw attention to yourself or the light.
                                     </p>
                                     <p>
-                                        As you come towards it the light brightens, then goes out
+                                        As you come towards it, the light brightens, then goes out
                                         completely. You break into a jog. Right there, where the
                                         light used to be, is a circular wooden door.
                                     </p>
