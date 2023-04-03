@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ethers } from 'ethers'
-import { CONTRACT_NAME, SUPPORTED_CHAINS, CONTRACT_INFO } from '../constants'
+import { CONTRACT_NAME, SUPPORTED_CHAINS, CONTRACT_INFO, getDefaultChainId } from '../constants'
 
 export enum TokenStatus {
     Burned = 'BURN',
@@ -184,7 +184,7 @@ export const BlockchainContext = ({ child }: { child: JSX.Element }) => {
         if (metamask) {
             updateConnectedChain()
         } else {
-            setChainId('0x5') //Default to Goerli
+            setChainId(getDefaultChainId()) //Default to Goerli
         }
     }, [])
 

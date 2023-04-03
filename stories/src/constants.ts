@@ -27,9 +27,17 @@ export const CONTRACT_NAME = "Pathfinder";
 // }
 // 0x7AEe7318aEac4C955f554b5cF6A3C42b96F1143f
 // 0x7E682a7427f0E62De84a4e7e2c14566C0e0aE96c
+// 0xC00eBE404C500AD9134344c4d1b1f8b2f1CfAD33
 
 export const CONTRACT_INFO: Record<string,ContractInfoType> = {
-    "0x5": {address: "0x7E682a7427f0E62De84a4e7e2c14566C0e0aE96c", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/pathfinder"},
+    "0x5": {address: "0xC00eBE404C500AD9134344c4d1b1f8b2f1CfAD33", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/pathfinder"},
 }
 
 export const SUPPORTED_CHAINS = Object.keys(CONTRACT_INFO);
+
+export const getDefaultChainId = () => {
+    if (CONTRACT_INFO["0x1"] !== undefined) {
+        return "0x1";
+    }
+    return "0x5";
+}
