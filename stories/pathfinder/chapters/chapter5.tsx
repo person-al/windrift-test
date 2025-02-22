@@ -107,7 +107,6 @@ export const Page: PageType = () => {
                                                     )
                                                     return
                                                 }
-                                                setHasMinted(true)
                                             }}
                                         />{' '}
                                         <Button
@@ -120,7 +119,7 @@ export const Page: PageType = () => {
                                                     ) as unknown as AnyAction
                                                 )
                                             }}>
-                                            nevermind
+                                            Nevermind
                                         </Button>
                                     </div>
                                 }>
@@ -161,7 +160,8 @@ export const Page: PageType = () => {
                     {/*Wants to buy but has already minted*/}
                     <When condition={wantToBuy === 'Yes' && signer && hasMinted}>
                         <p>
-                            "No, no. We've done business already. The gems came from 7 and must go to 7. Though perhaps{' '}
+                            "No, no. We've done business already. The gems came from 7 and must go
+                            to 7. Though perhaps{' '}
                             <Link color="cyan.500" href={CONTRACT_INFO[chainId].openSeaLink}>
                                 others
                             </Link>{' '}

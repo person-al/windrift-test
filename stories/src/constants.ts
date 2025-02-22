@@ -14,7 +14,8 @@ export const CHAIN_ID_TO_NAME: Record<string, string> = {
     "0x3": "Ropsten",
     "0x4": "Rinkeby",
     "0x5": "Goerli",
-    "0x2a": "Kovan"
+    "0x2a": "Kovan",
+    "0xaa36a7": "Sepolia"
 };
 
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -31,6 +32,7 @@ export const CONTRACT_NAME = "Pathfinder";
 
 export const CONTRACT_INFO: Record<string,ContractInfoType> = {
     "0x5": {address: "0xC00eBE404C500AD9134344c4d1b1f8b2f1CfAD33", abi: testContract.abi, openSeaLink: "https://testnets.opensea.io/collection/pathfinder"},
+    "0x1": {address: "0x31AEad502A16D491d55e6C2dB2DA245D45A71897", abi: testContract.abi},
 }
 
 export const SUPPORTED_CHAINS = Object.keys(CONTRACT_INFO);

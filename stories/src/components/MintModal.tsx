@@ -17,7 +17,7 @@ export const MintModal = ({
     React.useEffect(() => {
         contractConnection &&
             contractConnection.mintFee().then((result: number) => {
-                const fee = result / 10 ** 17
+                const fee = result / 10 ** 18
                 setMintFeeEth(fee.toString())
             })
     }, [contractConnection])

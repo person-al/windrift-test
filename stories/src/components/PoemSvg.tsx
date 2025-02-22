@@ -51,7 +51,7 @@ export const PoemSvg = () => {
   if (metamask && !contractConnection) {
     return (
       <Center>
-        Poem is currently only launched on the Rinkeby and Goerli networks.
+        Poem is currently only launched on the Ethereum mainnet and Goerli networks.
         Please use Metamask to switch networks.
       </Center>
     );

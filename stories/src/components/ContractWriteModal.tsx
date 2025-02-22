@@ -65,13 +65,14 @@ export const ContractWriteModal = ({
             onSuccess()
         } catch (err: any) {
             console.log(err)
-            const reasons = err.message.match(/reason":"(.+)","code/)
-            if (reasons && reasons.length > 1) {
-                setError(reasons[1])
-                onError && onError(reasons[1])
+            const reason = err.reason
+            const message = err.error && err.error.message
+            if (reason && message) {
+                setError(`"${reason}". Detailed error message: "${message}"`)
+            } else if (reason) {
+                setError(reason)
             } else {
-                setError(err.reason)
-                onError && onError(err.reason)
+                setError(err)
             }
             setInProgress(false)
         }
@@ -99,7 +100,10 @@ export const ContractWriteModal = ({
                     <ModalCloseButton />
                     {!inProgress && !txnHash && !error && <ModalBody>{modalBody}</ModalBody>}
                     {error && (
-                        <ModalBody>Error: {error} Check the dev console for details.</ModalBody>
+                        <ModalBody>
+                            <p>Error completing transaction: {error}</p>
+                            <p>Check the dev console for more details.</p>
+                        </ModalBody>
                     )}
                     {!error && txnHash && (
                         <ModalBody>
@@ -129,9 +133,16 @@ export const ContractWriteModal = ({
                     )}
 
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onConfirm}>
-                            {confirmButtonText}
-                        </Button>
+                        {!error && (
+                            <Button colorScheme="blue" mr={3} onClick={onConfirm}>
+                                {confirmButtonText}
+                            </Button>
+                        )}
+                        {error && (
+                            <Button colorScheme="blue" mr={3} onClick={close}>
+                                Cancel
+                            </Button>
+                        )}
                     </ModalFooter>
                 </ModalContent>
             </Modal>
